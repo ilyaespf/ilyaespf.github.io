@@ -1,0 +1,7 @@
+[
+  { "cle": "reseau", "nom": "Réseaux et systèmes", "fil": "bleu" },
+  { "cle": "bdd", "nom": "Bases de données", "fil": "vert" },
+  { "cle": "web", "nom": "Projets web", "fil": "orange" },
+  { "cle": "pro", "nom": "Milieu professionnel", "fil": "marron" },
+  { "cle": "devpro", "nom": "Développement professionnel", "fil": "marron" }
+]

@@ -1,0 +1,64 @@
+---
+layout: base.njk
+title: Épreuve E5
+permalink: /e5/
+eleventyExcludeFromCollections: true
+description: Tableau de synthèse des réalisations et attestation de stage pour l'épreuve E5 du BTS SIO.
+---
+<section class="cadre page-tete">
+  <h1>Épreuve E5</h1>
+  <p>Support et mise à disposition de services informatiques. Cette page rassemble le tableau de synthèse de mes réalisations et mon attestation de stage. Le tableau se met à jour automatiquement à chaque nouvelle réalisation.</p>
+</section>
+
+<section class="bloc cadre bloc--serre" aria-labelledby="t-tableau">
+  <div class="bloc__tete bloc__tete--ligne">
+    <h2 id="t-tableau">Tableau de synthèse</h2>
+    {% if site.docs.tableauSynthese %}<a class="bouton bouton--clair" href="{{ site.docs.tableauSynthese }}" download>Télécharger le tableau officiel (Excel)</a>{% endif %}
+  </div>
+  <div class="tableau-defile" tabindex="0" role="region" aria-labelledby="t-tableau">
+    <table class="synthese">
+      <thead>
+        <tr>
+          <th scope="col">Réalisation</th>
+          {% for c in competencesE5 %}<th scope="col"><span class="th-court" aria-hidden="true">{{ c.court }}</span><span class="th-long">{{ c.libelle }}</span></th>{% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for cat in categories %}
+        {% set items = collections.realisations | parCategorie(cat.cle) %}
+        {% if items.length %}
+        <tr class="synthese__cat"><th colspan="7" scope="colgroup"><span class="fil fil--{{ cat.fil }}">{{ cat.nom }}</span></th></tr>
+        {% for r in items %}
+        <tr>
+          <th scope="row"><a href="{{ r.url }}">{{ r.data.title }}</a></th>
+          {% for c in competencesE5 %}
+          <td>{% if c.cle in (r.data.competences or []) %}<span class="coche" aria-label="oui">✓</span>{% else %}<span class="sr">non</span>{% endif %}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="row">Nombre de réalisations</th>
+          {% for c in competencesE5 %}<td>{{ collections.realisations | compte(c.cle) }}</td>{% endfor %}
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <ol class="legende-comps">
+    {% for c in competencesE5 %}<li><strong>{{ c.court }}</strong> {{ c.libelle }}</li>{% endfor %}
+  </ol>
+</section>
+
+<section class="bloc cadre bloc--serre" aria-labelledby="t-attest">
+  <h2 id="t-attest">Attestation de stage</h2>
+  <div class="attest">
+    <div>
+      <p class="attest__titre">SIQUAL, Le Petit-Quevilly</p>
+      <p>Stage de 5 semaines, du 25 mai au 26 juin 2026, en réseau et support informatique.</p>
+    </div>
+    {% if site.docs.attestationSiqual %}<a class="bouton" href="{{ site.docs.attestationSiqual }}">Voir l'attestation (PDF)</a>{% else %}<p class="attest__info">Attestation disponible sur demande.</p>{% endif %}
+  </div>
+</section>

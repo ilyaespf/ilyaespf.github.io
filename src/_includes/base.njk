@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} | {% endif %}{{ site.nom }}, BTS SIO SISR</title>
+  <meta name="description" content="{{ description or site.accroche }}">
+  <meta property="og:title" content="{% if title %}{{ title }} | {% endif %}{{ site.nom }}">
+  <meta property="og:description" content="{{ description or site.accroche }}">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body class="{{ bodyClass }}">
+  <a class="skip" href="#contenu">Aller au contenu</a>
+  <header class="entete">
+    <div class="cadre entete__in">
+      <a class="marque" href="/">{{ site.nom }}</a>
+      <nav aria-label="Navigation principale">
+        <ul class="nav">
+          {% set liens = [["/realisations/", "Réalisations"], ["/veille/", "Veille"], ["/e5/", "Épreuve E5"], ["/cv/", "CV"]] %}
+          {% for l in liens %}
+          <li><a href="{{ l[0] }}"{% if page.url.startsWith(l[0]) %} aria-current="page"{% endif %}>{{ l[1] }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    {{ content | safe }}
+  </main>
+
+  <footer class="pied">
+    <div class="cadre pied__in">
+      <div>
+        <p class="pied__nom">{{ site.nom }}</p>
+        <p>{{ site.titre }}, {{ site.ecole }}</p>
+      </div>
+      <ul class="pied__contact">
+        <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+        <li><a href="tel:{{ site.telephone | replace(' ', '') }}">{{ site.telephone }}</a></li>
+        {% if site.linkedin %}<li><a href="{{ site.linkedin }}">LinkedIn</a></li>{% endif %}
+      </ul>
+      <p class="pied__maj">Mis à jour le {{ build.date | dateLongue }}</p>
+    </div>
+  </footer>
+  {% if scripts %}{{ scripts | safe }}{% endif %}
+</body>
+</html>

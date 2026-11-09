@@ -1,0 +1,68 @@
+---
+layout: base.njk
+title: Veille cybersécurité
+permalink: /veille/
+eleventyExcludeFromCollections: true
+description: Ma veille technologique sur la cybersécurité, organisée en trois axes.
+scripts: '<script src="/assets/filtre-veille.js" defer></script>'
+---
+<section class="cadre page-tete">
+  <h1>Veille cybersécurité</h1>
+  <p>La cybersécurité regroupe l'ensemble des moyens qui protègent les systèmes, les réseaux et les données contre les attaques. C'est le cœur du métier d'un administrateur systèmes et réseaux, c'est pourquoi j'ai choisi ce thème pour ma veille.</p>
+</section>
+
+<section class="bloc cadre bloc--serre" aria-labelledby="t-axes">
+  <h2 id="t-axes">Trois axes de veille</h2>
+  <ol class="axes">
+    {% for a in axes %}
+    <li class="axe-carte axe-carte--{{ a.num }}">
+      <h3>Axe {{ a.num }} : {{ a.nom }}</h3>
+      <p>{{ a.desc }}</p>
+      <p class="axe-carte__nb">{% set n = (collections.veille | parAxe(a.num)).length %}{{ n }} article{% if n > 1 %}s{% endif %}</p>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+
+<section class="bloc cadre bloc--serre" aria-labelledby="t-articles">
+  <div class="bloc__tete bloc__tete--ligne">
+    <h2 id="t-articles">Articles</h2>
+    <div class="filtres" role="group" aria-label="Filtrer par axe" hidden>
+      <button type="button" aria-pressed="true" data-axe="tous">Tous</button>
+      {% for a in axes %}<button type="button" aria-pressed="false" data-axe="{{ a.num }}">Axe {{ a.num }}</button>{% endfor %}
+    </div>
+  </div>
+  <ol class="articles articles--complet">
+    {% for a in collections.veille %}
+    <li class="article-ligne" data-axe="{{ a.data.axe }}">
+      <time datetime="{{ a.date | dateIso }}">{{ a.date | dateLongue }}</time>
+      <span class="axe axe--{{ a.data.axe }}">Axe {{ a.data.axe }}</span>
+      <a href="{{ a.url }}">{{ a.data.title }}</a>
+      <p class="article-ligne__resume">{{ a.data.resume }}</p>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+
+<section class="bloc cadre bloc--serre bloc--deux" aria-labelledby="t-outils">
+  <div>
+    <h2 id="t-outils">Mes outils</h2>
+    <dl class="outils">
+      <dt>Google Alertes</dt>
+      <dd>Alertes par email sur les mots-clés cybersécurité, vulnérabilité, ANSSI et cyberattaque.</dd>
+      <dt>Feedly</dt>
+      <dd>Agrégateur de flux RSS qui rassemble au même endroit les publications de mes sources.</dd>
+    </dl>
+  </div>
+  <div>
+    <h2>Mes sources</h2>
+    <ul class="sources-liste">
+      <li><a href="https://cyber.gouv.fr/">ANSSI</a>, l'agence nationale de la sécurité des systèmes d'information</li>
+      <li><a href="https://www.cert.ssi.gouv.fr/">CERT-FR</a>, ses alertes et avis de sécurité</li>
+      <li><a href="https://www.cybermalveillance.gouv.fr/">Cybermalveillance.gouv.fr</a></li>
+      <li><a href="https://www.cnil.fr/">CNIL</a>, pour la protection des données</li>
+      <li><a href="https://www.lemondeinformatique.fr/">Le Monde Informatique</a></li>
+      <li><a href="https://www.it-connect.fr/">IT-Connect</a></li>
+    </ul>
+  </div>
+</section>

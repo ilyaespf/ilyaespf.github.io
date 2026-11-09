@@ -1,0 +1,8 @@
+[
+  { "cle": "patrimoine", "court": "Patrimoine", "libelle": "Gérer le patrimoine informatique" },
+  { "cle": "incidents", "court": "Incidents", "libelle": "Répondre aux incidents et aux demandes d'assistance et d'évolution" },
+  { "cle": "presence", "court": "Présence en ligne", "libelle": "Développer la présence en ligne de l'organisation" },
+  { "cle": "projet", "court": "Mode projet", "libelle": "Travailler en mode projet" },
+  { "cle": "service", "court": "Service", "libelle": "Mettre à disposition des utilisateurs un service informatique" },
+  { "cle": "devpro", "court": "Dév. pro", "libelle": "Organiser son développement professionnel" }
+]

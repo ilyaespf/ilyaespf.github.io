@@ -1,0 +1,69 @@
+---
+layout: base.njk
+bodyClass: accueil
+---
+<section class="hero cadre">
+  <div class="hero__id">
+    <h1 class="hero__nom">Ilyaes<br>Satirer</h1>
+    <p class="hero__titre">{{ site.titre }}</p>
+    <p class="hero__accroche">{{ site.accroche }}</p>
+    <p class="hero__actions">
+      <a class="bouton" href="/realisations/">Voir mes réalisations</a>
+      <a class="bouton bouton--clair" href="/e5/">Dossier de l'épreuve E5</a>
+    </p>
+  </div>
+
+  <figure class="trace" aria-label="Mon parcours, présenté comme un traceroute">
+    <div class="trace__barre" aria-hidden="true"><span></span><span></span><span></span></div>
+    <pre class="trace__corps"><code><span class="l l0"><span class="invite">$</span> traceroute ilyaes-satirer</span>
+<span class="l l1"><span class="hop">1</span>  lycee-marc-bloch.val-de-reuil      <span class="t">2021–2024</span>
+   <span class="c">bac général</span></span>
+<span class="l l2"><span class="hop">2</span>  la-chataigneraie.le-mesnil-esnard  <span class="t">2025 → auj.</span>
+   <span class="c">BTS SIO, option SISR</span></span>
+<span class="l l3"><span class="hop">3</span>  siqual.le-petit-quevilly           <span class="t">mai–juin 2026</span>
+   <span class="c">stage réseau et support</span></span>
+<span class="l l4"><span class="hop">4</span>  bts-sio.session-{{ site.session }}               <span class="t encours">en cours</span><span class="curseur" aria-hidden="true"></span></span></code></pre>
+  </figure>
+</section>
+
+<section class="bloc cadre" aria-labelledby="t-reals">
+  <div class="bloc__tete">
+    <h2 id="t-reals">Réalisations</h2>
+    <p>TP, projets et stage réalisés pendant le BTS. Chaque fiche indique les compétences de l'épreuve E5 qu'elle couvre.</p>
+  </div>
+  {% include "liste-realisations.njk" %}
+</section>
+
+<section class="bloc cadre" aria-labelledby="t-veille">
+  <div class="bloc__tete">
+    <h2 id="t-veille">Veille cybersécurité</h2>
+    <p>Je suis l'actualité de la cybersécurité sur trois axes : les attaques, la sécurité des réseaux et la protection des données.</p>
+  </div>
+  <ol class="articles">
+    {% for a in collections.veille | limite(3) %}
+    <li class="article-ligne">
+      <time datetime="{{ a.date | dateIso }}">{{ a.date | dateLongue }}</time>
+      <span class="axe axe--{{ a.data.axe }}">Axe {{ a.data.axe }}</span>
+      <a href="{{ a.url }}">{{ a.data.title }}</a>
+    </li>
+    {% endfor %}
+  </ol>
+  <p><a class="lien-fort" href="/veille/">Toute la veille</a></p>
+</section>
+
+<section class="bloc cadre bloc--deux" aria-labelledby="t-certifs">
+  <div>
+    <h2 id="t-certifs">Certifications</h2>
+    <ul class="certifs">
+      <li><strong>RGPD</strong> Conformité et bonnes pratiques de protection des données personnelles.</li>
+      <li><strong>ANSSI</strong> Sensibilisation aux recommandations de l'Agence nationale de la sécurité des systèmes d'information.</li>
+      <li><strong>PIX</strong> Certification des compétences numériques, résultat à venir.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Me contacter</h2>
+    <p class="contact-gros"><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+    <p>{{ site.telephone }}<br>{{ site.ville }}, permis B et véhiculé</p>
+    <p><a class="lien-fort" href="/cv/">Lire mon CV</a></p>
+  </div>
+</section>

@@ -1,0 +1,5 @@
+[
+  { "num": 1, "nom": "Attaques informatiques", "desc": "Rançongiciels, hameçonnage, dénis de service, failles zero-day : comment les attaquants opèrent et qui ils visent." },
+  { "num": 2, "nom": "Sécurité des réseaux", "desc": "Pare-feu, VPN, IDS/IPS, segmentation, durcissement : les failles des équipements réseau et les bonnes pratiques pour les protéger." },
+  { "num": 3, "nom": "Sécurité des données", "desc": "Chiffrement, RGPD, gestion des accès, fuites de données : protéger l'information et réagir quand elle fuit." }
+]
