@@ -1,8 +1,7 @@
 ---
 title: "Établissement français du sang : des pirates modifient la température des congélateurs à plasma"
 resume: Dans la nuit du 1er au 2 novembre 2026, des attaquants ont pris le contrôle du système qui pilote les chambres froides de trois sites de l'EFS, via son prestataire Coolworld.
-date: 2026-11-09T10:00:00+01:00
-evenement: 2 novembre 2026
+date: 2026-11-04
 axe: 1
 sources:
   - titre: Cyberattack hits French blood bank site but no blood products are compromised
@@ -23,7 +22,7 @@ L'EFS n'était pas directement visé. Les attaquants sont passés par Coolworld,
 
 Un technicien de permanence a repéré la hausse de température pendant la nuit. Les poches de plasma ont été déplacées ou mises à l'abri, et aucun produit sanguin n'a été perdu. L'ANSSI et le ministère de la Santé enquêtent.
 
-Cette attaque ressemble à celle de la mi-octobre, qui avait visé les frigos et congélateurs de centaines de supermarchés en France, en Belgique et aux Pays-Bas. Le 21 octobre, devant le Sénat, le directeur général de l'ANSSI avait attribué ces attaques à des défauts de sécurité élémentaires : des équipements frigorifiques directement exposés sur Internet et des mots de passe faibles. Rien ne permet pour l'instant d'affirmer que les auteurs sont les mêmes.
+Cette attaque ressemble à celle du 12 octobre, qui avait visé les frigos et congélateurs de centaines de supermarchés en France, en Belgique et aux Pays-Bas. Le 21 octobre, devant le Sénat, le directeur général de l'ANSSI avait attribué ces attaques à des défauts de sécurité élémentaires : des équipements frigorifiques directement exposés sur Internet et des mots de passe faibles. Rien ne permet pour l'instant d'affirmer que les auteurs sont les mêmes.
 
 ## Ce que j'en retiens
 

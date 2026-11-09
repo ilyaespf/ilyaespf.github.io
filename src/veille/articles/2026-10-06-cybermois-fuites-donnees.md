@@ -1,8 +1,7 @@
 ---
 title: "Cybermois 2026 : près d'un Français sur deux informé d'une fuite de ses données"
 resume: Le Cybermois d'octobre a été centré sur les fuites de données personnelles, en hausse nette en 2026. La CNIL et Cybermalveillance.gouv.fr ont publié un guide pour réagir.
-date: 2026-11-09T11:00:00+01:00
-evenement: octobre 2026
+date: 2026-10-06
 axe: 3
 sources:
   - titre: Un Cybermois placé sous le signe des fuites de données, la discussion autour de NIS2 de nouveau reportée

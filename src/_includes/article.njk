@@ -7,7 +7,7 @@ layout: base.njk
   <p class="fil-ariane"><a href="/veille/">Veille cybersécurité</a> <span aria-hidden="true">/</span> Axe {{ axe }} : {{ ax.nom }}</p>
   <h1 class="fiche__titre">{{ title }}</h1>
   <p class="fiche__resume">{{ resume }}</p>
-  <p class="article-date">Publié le <time datetime="{{ page.date | dateIso }}">{{ page.date | dateLongue }}</time>{% if evenement %}, à propos de faits du {{ evenement }}{% endif %}</p>
+  <p class="article-date">Actualité du <time datetime="{{ page.date | dateIso }}">{{ page.date | dateLongue }}</time></p>
 
   <div class="fiche__corps prose">
     {{ content | safe }}
