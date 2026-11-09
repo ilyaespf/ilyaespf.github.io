@@ -8,8 +8,8 @@ bodyClass: accueil
     <p class="hero__titre">{{ site.titre }}</p>
     <p class="hero__accroche">{{ site.accroche }}</p>
     <p class="hero__actions">
-      <a class="bouton" href="/realisations/">Voir mes réalisations</a>
-      <a class="bouton bouton--clair" href="/e5/">Dossier de l'épreuve E5</a>
+      <a class="bouton" href="#cv">Voir mon CV</a>
+      <a class="bouton bouton--clair" href="/realisations/">Mes réalisations</a>
     </p>
   </div>
 
@@ -24,6 +24,14 @@ bodyClass: accueil
    <span class="c">stage réseau et support</span></span>
 <span class="l l4"><span class="hop">4</span>  bts-sio.session-{{ site.session }}               <span class="t encours">en cours</span><span class="curseur" aria-hidden="true"></span></span></code></pre>
   </figure>
+</section>
+
+<section class="bloc cadre" id="cv" aria-labelledby="t-cv">
+  <div class="bloc__tete bloc__tete--ligne">
+    <h2 id="t-cv">Curriculum vitæ</h2>
+    {% if site.docs.cvPdf %}<a class="bouton bouton--clair" href="{{ site.docs.cvPdf }}">Télécharger mon CV (PDF)</a>{% endif %}
+  </div>
+  {% include "cv-contenu.njk" %}
 </section>
 
 <section class="bloc cadre" aria-labelledby="t-reals">
@@ -64,6 +72,5 @@ bodyClass: accueil
     <h2>Me contacter</h2>
     <p class="contact-gros"><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
     <p>{% if site.telephone %}{{ site.telephone }}<br>{% endif %}{{ site.ville }}, permis B et véhiculé</p>
-    <p><a class="lien-fort" href="/cv/">Lire mon CV</a></p>
   </div>
 </section>

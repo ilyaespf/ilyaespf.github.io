@@ -291,3 +291,8 @@ p { margin: 0 0 1em; }
 .pied a { color: #fff; }
 .pied__contact { list-style: none; margin: 0; padding: 0; }
 .pied__maj { color: #8fa1b2; }
+.cv__titre { font-size: 1.3rem; font-stretch: 112%; font-weight: 750; margin-bottom: .75rem; }
+.bloc .cv { padding-bottom: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.frise li:last-child { border-bottom: 0; }

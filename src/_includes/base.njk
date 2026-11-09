@@ -19,7 +19,7 @@
       <a class="marque" href="/">{{ site.nom }}</a>
       <nav aria-label="Navigation principale">
         <ul class="nav">
-          {% set liens = [["/realisations/", "Réalisations"], ["/veille/", "Veille"], ["/e5/", "Épreuve E5"], ["/cv/", "CV"]] %}
+          {% set liens = [["/cv/", "CV"], ["/realisations/", "Réalisations"], ["/veille/", "Veille"], ["/e5/", "Épreuve E5"]] %}
           {% for l in liens %}
           <li><a href="{{ l[0] }}"{% if page.url.startsWith(l[0]) %} aria-current="page"{% endif %}>{{ l[1] }}</a></li>
           {% endfor %}
