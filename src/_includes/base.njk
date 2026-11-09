@@ -40,7 +40,7 @@
       </div>
       <ul class="pied__contact">
         <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-        <li><a href="tel:{{ site.telephone | replace(' ', '') }}">{{ site.telephone }}</a></li>
+        {% if site.telephone %}<li><a href="tel:{{ site.telephone | replace(' ', '') }}">{{ site.telephone }}</a></li>{% endif %}
         {% if site.linkedin %}<li><a href="{{ site.linkedin }}">LinkedIn</a></li>{% endif %}
       </ul>
       <p class="pied__maj">Mis à jour le {{ build.date | dateLongue }}</p>
