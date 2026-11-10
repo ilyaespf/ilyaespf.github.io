@@ -2,39 +2,12 @@
 layout: base.njk
 title: Réalisations
 permalink: /realisations/
-bodyClass: p-reals
 eleventyExcludeFromCollections: true
-scripts: '<script src="/assets/filtre.js" defer></script>'
 ---
 <section class="cadre page-tete">
-  <p class="surtitre">Réalisations</p>
-  <h1>TP, projets et stage</h1>
-  <p>Les réalisations de mon BTS SIO. Chaque fiche précise le contexte, ce que j'ai fait et les compétences de l'épreuve E5 qu'elle couvre.</p>
+  <h1>Réalisations</h1>
+  <p>Les TP, projets et expériences professionnelles de mon BTS SIO. Chaque fiche précise le contexte, ce que j'ai fait et les compétences de l'épreuve E5 qu'elle couvre.</p>
 </section>
-
-<section class="cadre">
-  <div class="filtres" data-filtre-groupe role="group" aria-label="Filtrer par domaine" hidden>
-    <button type="button" aria-pressed="true" data-valeur="tous">Tout <span>{{ collections.realisations.length }}</span></button>
-    {% for cat in categories %}{% set n = (collections.realisations | parCategorie(cat.cle)).length %}{% if n %}<button type="button" aria-pressed="false" data-valeur="{{ cat.cle }}">{{ cat.court }} <span>{{ n }}</span></button>{% endif %}{% endfor %}
-  </div>
-
-  <ul class="cartes">
-    {% for r in collections.realisations %}
-    {% set cat = categories | trouve("cle", r.data.categorie) %}
-    <li class="carte teinte-{{ cat.teinte }}" data-filtre-item data-valeur="{{ cat.cle }}">
-      <a class="carte__lien" href="{{ r.url }}">
-        <span class="carte__cat">{{ cat.nom }}</span>
-        <span class="carte__titre">{{ r.data.title }}</span>
-        <span class="carte__resume">{{ r.data.resume }}</span>
-      </a>
-      {% if r.data.competences and r.data.competences.length %}
-      <ul class="comps" aria-label="Compétences E5 mobilisées">
-        {% for c in competencesE5 %}{% if r.data.competences.includes(c.cle) %}<li title="{{ c.libelle }}">{{ c.court }}</li>{% endif %}{% endfor %}
-      </ul>
-      {% else %}
-      <p class="comps comps--vide">Compétences à venir</p>
-      {% endif %}
-    </li>
-    {% endfor %}
-  </ul>
+<section class="bloc cadre bloc--serre">
+  {% include "liste-realisations.njk" %}
 </section>

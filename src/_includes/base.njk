@@ -3,8 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#0B1220">
   <title>{% if title %}{{ title }} | {% endif %}{{ site.nom }}, BTS SIO SISR</title>
   <meta name="description" content="{{ description or site.accroche }}">
   <meta property="og:title" content="{% if title %}{{ title }} | {% endif %}{{ site.nom }}">
@@ -16,51 +14,38 @@
 </head>
 <body class="{{ bodyClass }}">
   <a class="skip" href="#contenu">Aller au contenu</a>
-  {% set liens = [
-    ["/", "Accueil", '<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>'],
-    ["/cv/", "CV", '<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h6M9 9h2"/>'],
-    ["/realisations/", "Réalisations", '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'],
-    ["/veille/", "Veille", '<path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/>'],
-    ["/e5/", "Épreuve E5", '<path d="M4 4h16v16H4z"/><path d="M4 10h16M10 10v10"/>']
-  ] %}
-  <div class="app">
-    <aside class="barre">
-      <a class="profil" href="/">
-        <span class="profil__avatar" aria-hidden="true">IS</span>
-        <span class="profil__texte">
-          <span class="profil__nom">{{ site.nom }}</span>
-          <span class="profil__titre">BTS SIO · option SISR</span>
-        </span>
-      </a>
-      <p class="statut"><span class="point" aria-hidden="true"></span> En formation · session {{ site.session }}</p>
-
-      <nav class="nav" aria-label="Navigation principale">
-        <ul>
+  <header class="entete">
+    <div class="cadre entete__in">
+      <a class="marque" href="/">{{ site.nom }}</a>
+      <nav aria-label="Navigation principale">
+        <ul class="nav">
+          {% set liens = [["/cv/", "CV"], ["/realisations/", "Réalisations"], ["/veille/", "Veille"], ["/e5/", "Épreuve E5"]] %}
           {% for l in liens %}
-          {% set actif = (page.url == "/" and l[0] == "/") or (l[0] != "/" and page.url.startsWith(l[0])) %}
-          <li><a href="{{ l[0] }}"{% if actif %} aria-current="page"{% endif %}>
-            <svg viewBox="0 0 24 24" aria-hidden="true">{{ l[2] | safe }}</svg><span>{{ l[1] }}</span>
-          </a></li>
+          <li><a href="{{ l[0] }}"{% if page.url.startsWith(l[0]) %} aria-current="page"{% endif %}>{{ l[1] }}</a></li>
           {% endfor %}
         </ul>
       </nav>
-
-      <div class="barre__bas">
-        <a class="bouton bouton--plein" href="mailto:{{ site.email }}">Me contacter</a>
-        <p class="barre__maj">Mis à jour le {{ build.date | dateLongue }}</p>
-      </div>
-    </aside>
-
-    <div class="app__contenu">
-      <main id="contenu">
-        {{ content | safe }}
-      </main>
-      <footer class="pied">
-        <p>{{ site.nom }} · {{ site.titre }}, {{ site.ecole }}</p>
-        <p><a href="mailto:{{ site.email }}">{{ site.email }}</a>{% if site.linkedin %} · <a href="{{ site.linkedin }}">LinkedIn</a>{% endif %}</p>
-      </footer>
     </div>
-  </div>
+  </header>
+
+  <main id="contenu">
+    {{ content | safe }}
+  </main>
+
+  <footer class="pied">
+    <div class="cadre pied__in">
+      <div>
+        <p class="pied__nom">{{ site.nom }}</p>
+        <p>{{ site.titre }}, {{ site.ecole }}</p>
+      </div>
+      <ul class="pied__contact">
+        <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+        {% if site.telephone %}<li><a href="tel:{{ site.telephone | replace(' ', '') }}">{{ site.telephone }}</a></li>{% endif %}
+        {% if site.linkedin %}<li><a href="{{ site.linkedin }}">LinkedIn</a></li>{% endif %}
+      </ul>
+      <p class="pied__maj">Mis à jour le {{ build.date | dateLongue }}</p>
+    </div>
+  </footer>
   {% if scripts %}{{ scripts | safe }}{% endif %}
 </body>
 </html>

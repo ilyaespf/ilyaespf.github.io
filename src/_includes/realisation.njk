@@ -1,46 +1,35 @@
 ---
 layout: base.njk
-bodyClass: p-fiche
 ---
-{% set cat = categories | trouve("cle", categorie) %}
-{% set prec = collections.realisations | getPreviousCollectionItem(page) %}
-{% set suiv = collections.realisations | getNextCollectionItem(page) %}
-<article class="cadre fiche teinte-{{ cat.teinte }}">
-  <header class="fiche__tete">
-    <p class="fil-ariane"><a href="/realisations/">Réalisations</a> <span aria-hidden="true">/</span> <span class="pastille">{{ cat.nom }}</span></p>
-    <h1>{{ title }}</h1>
-    <p class="fiche__resume">{{ resume }}</p>
-  </header>
+{% set cat = null %}
+{% for c in categories %}{% if c.cle == categorie %}{% set cat = c %}{% endif %}{% endfor %}
+<article class="fiche cadre">
+  <p class="fil-ariane"><a href="/realisations/">Réalisations</a> <span aria-hidden="true">/</span> {{ cat.nom }}</p>
+  <h1 class="fiche__titre fil fil--{{ cat.fil }}">{{ title }}</h1>
+  <p class="fiche__resume">{{ resume }}</p>
 
-  <div class="fiche__grille">
-    <div class="prose">
-      {{ content | safe }}
-    </div>
+  <dl class="fiche__meta">
+    {% if contexte %}<div><dt>Contexte</dt><dd>{{ contexte }}</dd></div>{% endif %}
+    {% if periode %}<div><dt>Période</dt><dd>{{ periode }}</dd></div>{% endif %}
+    {% if outils and outils.length %}<div><dt>Outils et technologies</dt><dd>{{ outils | join(", ") }}</dd></div>{% endif %}
+  </dl>
 
-    <aside class="fiche__cote">
-      <dl class="encart meta">
-        {% if contexte %}<div><dt>Contexte</dt><dd>{{ contexte }}</dd></div>{% endif %}
-        {% if periode %}<div><dt>Période</dt><dd>{{ periode }}</dd></div>{% endif %}
-        {% if outils and outils.length %}<div><dt>Outils</dt><dd><ul class="etiquettes">{% for o in outils %}<li>{{ o }}</li>{% endfor %}</ul></dd></div>{% endif %}
-      </dl>
-      <section class="encart" aria-labelledby="t-comps">
-        <h2 id="t-comps">Compétences E5</h2>
-        <ul class="coches">
-          {% for c in competencesE5 %}
-          {% set oui = c.cle in (competences or []) %}
-          <li class="{% if oui %}oui{% else %}non{% endif %}">
-            <span class="coches__case" aria-hidden="true">{% if oui %}✓{% endif %}</span>
-            <span>{{ c.libelle }}</span>
-            <span class="sr">{% if oui %} : mobilisée{% else %} : non mobilisée{% endif %}</span>
-          </li>
-          {% endfor %}
-        </ul>
-      </section>
-    </aside>
+  <div class="fiche__corps prose">
+    {{ content | safe }}
   </div>
 
-  <nav class="suite" aria-label="Autres réalisations">
-    {% if prec %}<a class="suite__lien" href="{{ prec.url }}"><span>Précédente</span>{{ prec.data.title }}</a>{% else %}<span></span>{% endif %}
-    {% if suiv %}<a class="suite__lien suite__lien--droite" href="{{ suiv.url }}"><span>Suivante</span>{{ suiv.data.title }}</a>{% endif %}
-  </nav>
+  <aside class="fiche__comps" aria-labelledby="t-comps">
+    <h2 id="t-comps">Compétences de l'épreuve E5</h2>
+    <ul class="grille-comps">
+      {% for c in competencesE5 %}
+      <li class="{% if c.cle in (competences or []) %}oui{% else %}non{% endif %}">
+        <span class="marque-comp" aria-hidden="true">{% if c.cle in (competences or []) %}✓{% endif %}</span>
+        <span>{{ c.libelle }}</span>
+        <span class="sr">{% if c.cle in (competences or []) %} : mobilisée{% else %} : non mobilisée{% endif %}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
+
+  <p class="retour"><a class="lien-fort" href="/realisations/">Toutes les réalisations</a></p>
 </article>

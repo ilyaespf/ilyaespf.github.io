@@ -1,115 +1,77 @@
 ---
 layout: base.njk
-bodyClass: p-accueil
+bodyClass: accueil
 ---
-<div class="cadre">
-  <div class="tableau">
-    <section class="carte-intro" aria-labelledby="t-intro">
-      <p class="surtitre">Portfolio · {{ site.titre }}</p>
-      <h1 id="t-intro">Ilyaes Satirer</h1>
-      <p class="carte-intro__texte">{{ site.accroche }}</p>
-      <ul class="infos">
-        <li>{{ site.ville }}</li>
-        <li>Permis B, véhiculé</li>
-        <li>Anglais C1 · Espagnol B2</li>
-      </ul>
-      <p class="actions">
-        <a class="bouton bouton--plein" href="/cv/">Voir mon CV</a>
-        <a class="bouton bouton--contour" href="/realisations/">Mes réalisations</a>
-      </p>
-    </section>
-
-    <section class="chiffres" aria-label="En chiffres">
-      <a href="/realisations/"><strong>{{ collections.realisations.length }}</strong><span>réalisations</span></a>
-      <a href="/veille/"><strong>{{ collections.veille.length }}</strong><span>actualités de veille</span></a>
-      <a href="#certifs"><strong>{{ certifications.obtenues.length }}</strong><span>certifications et cours</span></a>
-      <a href="/e5/"><strong>5</strong><span>semaines de stage</span></a>
-    </section>
-
-    <section class="tuile tuile--parcours" aria-labelledby="t-parcours">
-      <div class="tuile__tete"><h2 id="t-parcours">Parcours</h2><a class="lien-fleche" href="/cv/">CV complet</a></div>
-      <ol class="mini-frise">
-        {% for p in cv.parcours %}{% if p.type != "Emploi" %}
-        <li><span class="mini-frise__date">{{ p.dates }}</span><strong>{{ p.titre }}</strong><span>{{ p.lieu }}</span></li>
-        {% endif %}{% endfor %}
-      </ol>
-    </section>
-
-    <section class="tuile tuile--comp" aria-labelledby="t-comp">
-      <div class="tuile__tete"><h2 id="t-comp">Compétences techniques</h2></div>
-      <ul class="puces">
-        {% for c in cv.competences %}<li>{{ c }}</li>{% endfor %}
-      </ul>
-    </section>
-
-    <section class="tuile tuile--exp" aria-labelledby="t-exp">
-      <div class="tuile__tete"><h2 id="t-exp">Expériences</h2></div>
-      <ul class="liste-fine">
-        {% for p in cv.parcours %}{% if p.type == "Emploi" %}<li><strong>{{ p.titre }}</strong><span>{{ p.lieu }} · {{ p.dates }}</span></li>{% endif %}{% endfor %}
-      </ul>
-    </section>
-
-    <section class="tuile tuile--qual" aria-labelledby="t-qual">
-      <div class="tuile__tete"><h2 id="t-qual">Qualités</h2></div>
-      <ul class="etiquettes">{% for q in cv.qualites %}<li>{{ q }}</li>{% endfor %}</ul>
-      <div class="tuile__tete tuile__tete--suite"><h2>Centres d'intérêt</h2></div>
-      <ul class="etiquettes">{% for i in cv.interets %}<li>{{ i }}</li>{% endfor %}</ul>
-    </section>
+<section class="hero cadre">
+  <div class="hero__id">
+    <h1 class="hero__nom">Ilyaes<br>Satirer</h1>
+    <p class="hero__titre">{{ site.titre }}</p>
+    <p class="hero__accroche">{{ site.accroche }}</p>
+    <p class="hero__actions">
+      <a class="bouton" href="#cv">Voir mon CV</a>
+      <a class="bouton bouton--clair" href="/realisations/">Mes réalisations</a>
+    </p>
   </div>
 
-  <section class="section" aria-labelledby="t-reals">
-    <div class="section__tete">
-      <h2 id="t-reals">Réalisations par domaine</h2>
-      <a class="lien-fleche" href="/realisations/">Toutes les réalisations</a>
-    </div>
-    <div class="domaines">
-      {% for cat in categories %}
-      {% set items = collections.realisations | parCategorie(cat.cle) %}
-      {% if items.length %}
-      <a class="domaine teinte-{{ cat.teinte }}" href="/realisations/?cat={{ cat.cle }}">
-        <span class="domaine__haut"><span class="domaine__nom">{{ cat.nom }}</span><span class="domaine__nb">{{ items.length }}</span></span>
-        <ul>{% for r in items %}<li>{{ r.data.title }}</li>{% endfor %}</ul>
-      </a>
-      {% endif %}
-      {% endfor %}
-    </div>
-  </section>
+  <figure class="trace" aria-label="Mon parcours, présenté comme un traceroute">
+    <div class="trace__barre" aria-hidden="true"><span></span><span></span><span></span></div>
+    <pre class="trace__corps"><code><span class="l l0"><span class="invite">$</span> traceroute ilyaes-satirer</span>
+<span class="l l1"><span class="hop">1</span>  lycee-marc-bloch.val-de-reuil      <span class="t">2021–2024</span>
+   <span class="c">bac général</span></span>
+<span class="l l2"><span class="hop">2</span>  la-chataigneraie.le-mesnil-esnard  <span class="t">2025 → auj.</span>
+   <span class="c">BTS SIO, option SISR</span></span>
+<span class="l l3"><span class="hop">3</span>  siqual.le-petit-quevilly           <span class="t">mai–juin 2026</span>
+   <span class="c">stage réseau et support</span></span>
+<span class="l l4"><span class="hop">4</span>  bts-sio.session-{{ site.session }}               <span class="t encours">en cours</span><span class="curseur" aria-hidden="true"></span></span></code></pre>
+  </figure>
+</section>
 
-  <section class="section" aria-labelledby="t-veille">
-    <div class="section__tete">
-      <h2 id="t-veille">Dernières actualités de veille</h2>
-      <a class="lien-fleche" href="/veille/">Toute la veille</a>
-    </div>
-    <div class="une">
-      {% for a in collections.veille | limite(3) %}
-      {% set ax = axes | trouve("num", a.data.axe) %}
-      <a class="une__carte axe-{{ a.data.axe }}{% if loop.first %} une__carte--grande{% endif %}" href="{{ a.url }}">
-        <span class="une__meta"><span class="pastille">{{ ax.nom }}</span><time datetime="{{ a.date | dateIso }}">{{ a.date | dateLongue }}</time></span>
-        <span class="une__titre">{{ a.data.title }}</span>
-        {% if loop.first %}<span class="une__resume">{{ a.data.resume }}</span>{% endif %}
-      </a>
-      {% endfor %}
-    </div>
-  </section>
+<section class="bloc cadre" id="cv" aria-labelledby="t-cv">
+  <div class="bloc__tete bloc__tete--ligne">
+    <h2 id="t-cv">Curriculum vitæ</h2>
+    {% if site.docs.cvPdf %}<a class="bouton bouton--clair" href="{{ site.docs.cvPdf }}">Télécharger mon CV (PDF)</a>{% endif %}
+  </div>
+  {% include "cv-contenu.njk" %}
+</section>
 
-  <section class="section" id="certifs" aria-labelledby="t-certifs">
-    <div class="section__tete">
-      <h2 id="t-certifs">Certifications et cours en ligne</h2>
-    </div>
+<section class="bloc cadre" aria-labelledby="t-reals">
+  <div class="bloc__tete">
+    <h2 id="t-reals">Réalisations</h2>
+    <p>TP, projets et stage réalisés pendant le BTS. Chaque fiche indique les compétences de l'épreuve E5 qu'elle couvre.</p>
+  </div>
+  {% include "liste-realisations.njk" %}
+</section>
+
+<section class="bloc cadre" aria-labelledby="t-veille">
+  <div class="bloc__tete">
+    <h2 id="t-veille">Veille cybersécurité</h2>
+    <p>Je suis l'actualité de la cybersécurité sur trois axes : les attaques, la sécurité des réseaux et la protection des données.</p>
+  </div>
+  <ol class="articles">
+    {% for a in collections.veille | limite(3) %}
+    <li class="article-ligne">
+      <time datetime="{{ a.date | dateIso }}">{{ a.date | dateLongue }}</time>
+      <span class="axe axe--{{ a.data.axe }}">Axe {{ a.data.axe }}</span>
+      <a href="{{ a.url }}">{{ a.data.title }}</a>
+    </li>
+    {% endfor %}
+  </ol>
+  <p><a class="lien-fort" href="/veille/">Toute la veille</a></p>
+</section>
+
+<section class="bloc cadre bloc--deux" aria-labelledby="t-certifs">
+  <div>
+    <h2 id="t-certifs">Certifications</h2>
     <ul class="certifs">
-      {% for c in certifications.obtenues %}
-      <li>
-        <span class="certifs__org">{{ c.org }}</span>
-        <strong>{{ c.nom }}</strong>
-        <span class="certifs__detail">{{ c.detail }}</span>
-        {% if c.date %}<span class="certifs__date">{{ c.date }}</span>{% endif %}
-      </li>
-      {% endfor %}
-      <li class="certifs--suite">
-        <span class="certifs__org">Prochain cours</span>
-        <strong>{{ certifications.prochaine.nom }}</strong>
-        <span class="certifs__detail">{{ certifications.prochaine.detail }}</span>
-      </li>
+      <li><strong>RGPD</strong> Conformité et bonnes pratiques de protection des données personnelles.</li>
+      <li><strong>ANSSI</strong> Sensibilisation aux recommandations de l'Agence nationale de la sécurité des systèmes d'information.</li>
+      <li><strong>PIX</strong> Compétences numériques : profil à 336 pix, niveau 5 en recherche et veille d'information.</li>
+      <li><strong>Cisco Networking Academy</strong> Introduction à la cybersécurité (terminé le 14 octobre 2026), Introduction à l'IoT et à la transformation digitale (terminé le 4 novembre 2026), Premiers pas avec Cisco Packet Tracer (terminé le 29 septembre 2026).</li>
     </ul>
-  </section>
-</div>
+  </div>
+  <div>
+    <h2>Me contacter</h2>
+    <p class="contact-gros"><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+    <p>{% if site.telephone %}{{ site.telephone }}<br>{% endif %}{{ site.ville }}, permis B et véhiculé</p>
+  </div>
+</section>
