@@ -2,13 +2,59 @@
 layout: base.njk
 title: CV
 permalink: /cv/
+bodyClass: p-cv
 eleventyExcludeFromCollections: true
 ---
-<section class="cadre page-tete">
-  <h1>Curriculum vitæ</h1>
-  <p>{{ site.titre }} à {{ site.ecole }}. {{ site.ville }}, permis B et véhiculé.</p>
+<section class="cadre cv-tete">
+  <div>
+    <p class="surtitre">Curriculum vitæ</p>
+    <h1>{{ site.nom }}</h1>
+    <p class="cv-tete__titre">{{ site.titre }}</p>
+  </div>
+  <ul class="cv-tete__infos">
+    <li><span>Ville</span>{{ site.ville }}</li>
+    <li><span>Mobilité</span>Permis B, véhiculé</li>
+    <li><span>Email</span><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+    {% if site.docs.cvPdf %}<li><a class="bouton" href="{{ site.docs.cvPdf }}">Télécharger le PDF</a></li>{% endif %}
+  </ul>
 </section>
 
-<div class="cadre">
-{% include "cv-contenu.njk" %}
+<div class="cadre cv-corps">
+  <section aria-labelledby="t-parcours">
+    <h2 id="t-parcours" class="titre-section">Parcours</h2>
+    <ol class="frise">
+      {% for p in cv.parcours %}
+      <li class="frise__item frise--{{ p.type | lower }}">
+        <span class="frise__date">{{ p.dates }}</span>
+        <div class="frise__carte">
+          <span class="pastille">{{ p.type }}</span>
+          <h3>{{ p.titre }}</h3>
+          <p class="frise__lieu">{{ p.lieu }}</p>
+          {% if p.detail %}<p>{{ p.detail }}</p>{% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+
+  <aside class="cv-cote">
+    <section class="encart">
+      <h2>Compétences techniques</h2>
+      <ul class="puces">{% for c in cv.competences %}<li>{{ c }}</li>{% endfor %}</ul>
+    </section>
+    <section class="encart">
+      <h2>Langues</h2>
+      <ul class="langues">{% for l in cv.langues %}<li><span>{{ l.nom }}</span><span class="badge">{{ l.niveau }}</span></li>{% endfor %}</ul>
+    </section>
+    <section class="encart">
+      <h2>Certifications</h2>
+      <ul class="liste-fine">{% for c in certifications.obtenues %}<li><strong>{{ c.nom }}</strong><span>{{ c.org }}</span></li>{% endfor %}</ul>
+    </section>
+    <section class="encart">
+      <h2>Qualités</h2>
+      <ul class="etiquettes">{% for q in cv.qualites %}<li>{{ q }}</li>{% endfor %}</ul>
+      <h2 class="encart__suite">Centres d'intérêt</h2>
+      <ul class="etiquettes">{% for i in cv.interets %}<li>{{ i }}</li>{% endfor %}</ul>
+    </section>
+  </aside>
 </div>

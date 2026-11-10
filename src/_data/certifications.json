@@ -1,0 +1,11 @@
+{
+  "obtenues": [
+    { "nom": "Introduction à l'IoT et à la transformation digitale", "org": "Cisco Networking Academy", "detail": "Objets connectés, données collectées et sécurité d'un monde connecté.", "date": "Terminé le 4 novembre 2026" },
+    { "nom": "Introduction à la cybersécurité", "org": "Cisco Networking Academy", "detail": "Menaces et attaques, protection des données, sécurité de l'entreprise.", "date": "Terminé le 14 octobre 2026" },
+    { "nom": "Premiers pas avec Cisco Packet Tracer", "org": "Cisco Networking Academy", "detail": "Construire et tester un réseau virtuel avec le simulateur de Cisco.", "date": "Terminé le 29 septembre 2026" },
+    { "nom": "Pix", "org": "Compétences numériques", "detail": "Profil à 336 pix. Niveau 5 en recherche et veille d'information.", "date": "" },
+    { "nom": "RGPD", "org": "Protection des données", "detail": "Conformité et bonnes pratiques de protection des données personnelles.", "date": "" },
+    { "nom": "ANSSI", "org": "Sécurité numérique", "detail": "Sensibilisation aux recommandations de l'Agence nationale de la sécurité des systèmes d'information.", "date": "" }
+  ],
+  "prochaine": { "nom": "CCNA : Introduction to Networks", "org": "Cisco Networking Academy", "detail": "Bases des réseaux : adressage IP, Ethernet, commutateurs et routeurs." }
+}

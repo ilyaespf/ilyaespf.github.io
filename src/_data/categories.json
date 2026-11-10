@@ -1,7 +1,7 @@
 [
-  { "cle": "reseau", "nom": "Réseaux et systèmes", "fil": "bleu" },
-  { "cle": "bdd", "nom": "Bases de données", "fil": "vert" },
-  { "cle": "web", "nom": "Projets web", "fil": "orange" },
-  { "cle": "pro", "nom": "Milieu professionnel", "fil": "marron" },
-  { "cle": "devpro", "nom": "Développement professionnel", "fil": "marron" }
+  { "cle": "reseau", "nom": "Réseaux et systèmes", "court": "Réseau", "teinte": "bleu" },
+  { "cle": "bdd", "nom": "Bases de données", "court": "Données", "teinte": "cyan" },
+  { "cle": "web", "nom": "Projets web", "court": "Web", "teinte": "indigo" },
+  { "cle": "pro", "nom": "Milieu professionnel", "court": "Stage", "teinte": "vert" },
+  { "cle": "devpro", "nom": "Développement professionnel", "court": "Dév. pro", "teinte": "vert" }
 ]

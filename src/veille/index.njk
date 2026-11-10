@@ -2,50 +2,58 @@
 layout: base.njk
 title: Veille cybersécurité
 permalink: /veille/
+bodyClass: p-veille
 eleventyExcludeFromCollections: true
 description: Ma veille technologique sur la cybersécurité, organisée en trois axes.
-scripts: '<script src="/assets/filtre-veille.js" defer></script>'
+scripts: '<script src="/assets/filtre.js" defer></script>'
 ---
-<section class="cadre page-tete">
-  <h1>Veille cybersécurité</h1>
-  <p>La cybersécurité regroupe l'ensemble des moyens qui protègent les systèmes, les réseaux et les données contre les attaques. C'est le cœur du métier d'un administrateur systèmes et réseaux, c'est pourquoi j'ai choisi ce thème pour ma veille.</p>
-</section>
-
-<section class="bloc cadre bloc--serre" aria-labelledby="t-axes">
-  <h2 id="t-axes">Trois axes de veille</h2>
-  <ol class="axes">
-    {% for a in axes %}
-    <li class="axe-carte axe-carte--{{ a.num }}">
-      <h3>Axe {{ a.num }} : {{ a.nom }}</h3>
-      <p>{{ a.desc }}</p>
-      <p class="axe-carte__nb">{% set n = (collections.veille | parAxe(a.num)).length %}{{ n }} article{% if n > 1 %}s{% endif %}</p>
-    </li>
-    {% endfor %}
-  </ol>
-</section>
-
-<section class="bloc cadre bloc--serre" aria-labelledby="t-articles">
-  <div class="bloc__tete bloc__tete--ligne">
-    <h2 id="t-articles">Articles</h2>
-    <div class="filtres" role="group" aria-label="Filtrer par axe" hidden>
-      <button type="button" aria-pressed="true" data-axe="tous">Tous</button>
-      {% for a in axes %}<button type="button" aria-pressed="false" data-axe="{{ a.num }}">Axe {{ a.num }}</button>{% endfor %}
-    </div>
-  </div>
-  <ol class="articles articles--complet">
-    {% for a in collections.veille %}
-    <li class="article-ligne" data-axe="{{ a.data.axe }}">
-      <time datetime="{{ a.date | dateIso }}">{{ a.date | dateLongue }}</time>
-      <span class="axe axe--{{ a.data.axe }}">Axe {{ a.data.axe }}</span>
-      <a href="{{ a.url }}">{{ a.data.title }}</a>
-      <p class="article-ligne__resume">{{ a.data.resume }}</p>
-    </li>
-    {% endfor %}
-  </ol>
-</section>
-
-<section class="bloc cadre bloc--serre bloc--deux" aria-labelledby="t-outils">
+<section class="cadre veille-tete">
   <div>
+    <p class="surtitre">Veille technologique</p>
+    <h1>Cybersécurité</h1>
+    <p>La cybersécurité regroupe les moyens qui protègent les systèmes, les réseaux et les données contre les attaques. C'est le cœur du métier d'un administrateur systèmes et réseaux, c'est pourquoi j'ai choisi ce thème.</p>
+  </div>
+  <div class="veille-tete__total"><strong>{{ collections.veille.length }}</strong><span>actualités suivies</span></div>
+</section>
+
+<section class="cadre" aria-labelledby="t-axes">
+  <h2 id="t-axes" class="sr">Trois axes de veille</h2>
+  <div class="axes" data-filtre-groupe role="group" aria-label="Filtrer par axe" data-sans-js>
+    {% for a in axes %}
+    {% set n = (collections.veille | parAxe(a.num)).length %}
+    <button type="button" class="axe-bouton axe-{{ a.num }}" aria-pressed="false" data-valeur="{{ a.num }}">
+      <span class="axe-bouton__haut"><span class="pastille">Axe {{ a.num }}</span><span class="axe-bouton__nb">{{ n }}</span></span>
+      <span class="axe-bouton__nom">{{ a.nom }}</span>
+      <span class="axe-bouton__desc">{{ a.desc }}</span>
+    </button>
+    {% endfor %}
+  </div>
+  <p class="axes__aide" hidden>Cliquez sur un axe pour filtrer, cliquez à nouveau pour tout afficher.</p>
+</section>
+
+<section class="cadre fil-actu" aria-labelledby="t-fil">
+  <h2 id="t-fil" class="titre-section">Fil des actualités</h2>
+  {% for g in collections.veille | parMois %}
+  <div class="mois" data-filtre-mois>
+    <h3 class="mois__titre">{{ g.mois }}</h3>
+    <ol class="mois__liste">
+      {% for a in g.items %}
+      <li class="actu axe-{{ a.data.axe }}" data-filtre-item data-valeur="{{ a.data.axe }}">
+        <time class="actu__date" datetime="{{ a.date | dateIso }}">{{ a.date | jourMois }}</time>
+        <a class="actu__lien" href="{{ a.url }}">
+          <span class="pastille">Axe {{ a.data.axe }}</span>
+          <span class="actu__titre">{{ a.data.title }}</span>
+          <span class="actu__resume">{{ a.data.resume }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+  {% endfor %}
+</section>
+
+<section class="cadre veille-outils" aria-labelledby="t-outils">
+  <div class="encart">
     <h2 id="t-outils">Mes outils</h2>
     <dl class="outils">
       <dt>Google Alertes</dt>
@@ -54,15 +62,15 @@ scripts: '<script src="/assets/filtre-veille.js" defer></script>'
       <dd>Agrégateur de flux RSS qui rassemble au même endroit les publications de mes sources.</dd>
     </dl>
   </div>
-  <div>
+  <div class="encart">
     <h2>Mes sources</h2>
     <ul class="sources-liste">
-      <li><a href="https://cyber.gouv.fr/">ANSSI</a>, l'agence nationale de la sécurité des systèmes d'information</li>
-      <li><a href="https://www.cert.ssi.gouv.fr/">CERT-FR</a>, ses alertes et avis de sécurité</li>
-      <li><a href="https://www.cybermalveillance.gouv.fr/">Cybermalveillance.gouv.fr</a></li>
-      <li><a href="https://www.cnil.fr/">CNIL</a>, pour la protection des données</li>
-      <li><a href="https://www.lemondeinformatique.fr/">Le Monde Informatique</a></li>
-      <li><a href="https://www.it-connect.fr/">IT-Connect</a></li>
+      <li><a href="https://cyber.gouv.fr/">ANSSI</a> <span>Agence nationale de la sécurité des systèmes d'information</span></li>
+      <li><a href="https://www.cert.ssi.gouv.fr/">CERT-FR</a> <span>Alertes et avis de sécurité</span></li>
+      <li><a href="https://www.cybermalveillance.gouv.fr/">Cybermalveillance.gouv.fr</a> <span>Assistance et prévention</span></li>
+      <li><a href="https://www.cnil.fr/">CNIL</a> <span>Protection des données</span></li>
+      <li><a href="https://www.lemondeinformatique.fr/">Le Monde Informatique</a> <span>Presse spécialisée</span></li>
+      <li><a href="https://www.it-connect.fr/">IT-Connect</a> <span>Presse spécialisée</span></li>
     </ul>
   </div>
 </section>

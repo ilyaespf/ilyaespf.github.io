@@ -1,0 +1,25 @@
+{
+  "parcours": [
+    { "type": "Stage", "dates": "Mai à juin 2026", "titre": "Stagiaire réseau et support informatique", "lieu": "SIQUAL, Le Petit-Quevilly", "detail": "Stage de BTS SIO de 5 semaines, encadré par M. Legrand." },
+    { "type": "Formation", "dates": "2025 à aujourd'hui", "titre": "BTS SIO, option SISR", "lieu": "La Châtaigneraie, Le Mesnil-Esnard", "detail": "Services informatiques aux organisations, option solutions d'infrastructure, systèmes et réseaux." },
+    { "type": "Emploi", "dates": "Juin 2025", "titre": "Agent de production (CDD)", "lieu": "Mottaz Industrie, Gaillon" },
+    { "type": "Emploi", "dates": "Février à mars 2025", "titre": "Préparateur de commandes (CDD)", "lieu": "Intermarché, Heudebouville" },
+    { "type": "Emploi", "dates": "Décembre 2024", "titre": "Opérateur de conditionnement (CDD)", "lieu": "Biopack, Val-de-Reuil" },
+    { "type": "Emploi", "dates": "Septembre 2024 à juin 2025", "titre": "Livreur (CDI)", "lieu": "French Pizza, Léry" },
+    { "type": "Formation", "dates": "2021 à 2024", "titre": "Baccalauréat général", "lieu": "Lycée Marc Bloch, Val-de-Reuil" }
+  ],
+  "competences": [
+    "Installation de systèmes d'exploitation et de services (Windows, Windows Server, Debian)",
+    "Réseaux : configuration de commutateurs et de routeurs, DHCP",
+    "Gestion d'un parc informatique",
+    "Scripts MS-DOS et PowerShell",
+    "Bases de données SQL et MySQL",
+    "Développement web HTML, CSS et PHP"
+  ],
+  "langues": [
+    { "nom": "Anglais", "niveau": "C1" },
+    { "nom": "Espagnol", "niveau": "B2" }
+  ],
+  "qualites": ["Responsable", "Organisé", "Patient", "Dynamique", "Créatif", "À l'écoute"],
+  "interets": ["Informatique", "Lecture", "Football", "Judo"]
+}
