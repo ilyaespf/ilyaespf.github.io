@@ -1,76 +1,152 @@
 ---
 layout: base.njk
-bodyClass: accueil
+bodyClass: p-accueil
 ---
 <section class="hero cadre">
   <div class="hero__id">
-    <h1 class="hero__nom">Ilyaes<br>Satirer</h1>
-    <p class="hero__titre">{{ site.titre }}</p>
+    <p class="etiquette"><span class="point" aria-hidden="true"></span> {{ site.titre }} · session {{ site.session }}</p>
+    <h1 class="hero__nom">Ilyaes Satirer</h1>
     <p class="hero__accroche">{{ site.accroche }}</p>
     <p class="hero__actions">
       <a class="bouton" href="#cv">Voir mon CV</a>
-      <a class="bouton bouton--clair" href="/realisations/">Mes réalisations</a>
+      <a class="bouton bouton--contour" href="/realisations/">Mes réalisations</a>
     </p>
   </div>
 
-  <figure class="trace" aria-label="Mon parcours, présenté comme un traceroute">
-    <div class="trace__barre" aria-hidden="true"><span></span><span></span><span></span></div>
-    <pre class="trace__corps"><code><span class="l l0"><span class="invite">$</span> traceroute ilyaes-satirer</span>
-<span class="l l1"><span class="hop">1</span>  lycee-marc-bloch.val-de-reuil      <span class="t">2021–2024</span>
-   <span class="c">bac général</span></span>
-<span class="l l2"><span class="hop">2</span>  la-chataigneraie.le-mesnil-esnard  <span class="t">2025 → auj.</span>
-   <span class="c">BTS SIO, option SISR</span></span>
-<span class="l l3"><span class="hop">3</span>  siqual.le-petit-quevilly           <span class="t">mai–juin 2026</span>
-   <span class="c">stage réseau et support</span></span>
-<span class="l l4"><span class="hop">4</span>  bts-sio.session-{{ site.session }}               <span class="t encours">en cours</span><span class="curseur" aria-hidden="true"></span></span></code></pre>
+  <figure class="terminal" aria-label="Mon parcours, présenté comme un traceroute">
+    <div class="terminal__barre" aria-hidden="true"><span></span><span></span><span></span><em>parcours.sh</em></div>
+    <pre class="terminal__corps"><code><span class="l"><span class="invite">$</span> traceroute ilyaes-satirer</span>
+<span class="l"><span class="hop">1</span>  lycee-marc-bloch        <span class="t">2021–2024</span></span>
+<span class="l">   <span class="c">bac général</span></span>
+<span class="l"><span class="hop">2</span>  la-chataigneraie        <span class="t">2025 → auj.</span></span>
+<span class="l">   <span class="c">BTS SIO, option SISR</span></span>
+<span class="l"><span class="hop">3</span>  siqual                  <span class="t">mai–juin 2026</span></span>
+<span class="l">   <span class="c">stage réseau et support</span></span>
+<span class="l"><span class="hop">4</span>  bts-sio.session-{{ site.session }}  <span class="t ok">en cours</span><span class="curseur" aria-hidden="true"></span></span></code></pre>
   </figure>
 </section>
 
+<section class="chiffres cadre" aria-label="En chiffres">
+  <div><strong>{{ collections.realisations.length }}</strong><span>réalisations</span></div>
+  <div><strong>{{ collections.veille.length }}</strong><span>actualités de veille</span></div>
+  <div><strong>{{ certifications.obtenues.length }}</strong><span>certifications et cours</span></div>
+  <div><strong>5</strong><span>semaines de stage</span></div>
+</section>
+
 <section class="bloc cadre" id="cv" aria-labelledby="t-cv">
-  <div class="bloc__tete bloc__tete--ligne">
-    <h2 id="t-cv">Curriculum vitæ</h2>
-    {% if site.docs.cvPdf %}<a class="bouton bouton--clair" href="{{ site.docs.cvPdf }}">Télécharger mon CV (PDF)</a>{% endif %}
+  <div class="bloc__tete">
+    <p class="surtitre">01 · Curriculum vitæ</p>
+    <h2 id="t-cv">Mon CV en un coup d'œil</h2>
+    <p class="bloc__lien"><a class="lien-fleche" href="/cv/">Version détaillée</a>{% if site.docs.cvPdf %} · <a class="lien-fleche" href="{{ site.docs.cvPdf }}">PDF</a>{% endif %}</p>
   </div>
-  {% include "cv-contenu.njk" %}
+
+  <div class="bento">
+    <article class="tuile tuile--haute">
+      <h3>Parcours</h3>
+      <ol class="mini-frise">
+        {% for p in cv.parcours %}{% if p.type != "Emploi" %}
+        <li><span class="mini-frise__date">{{ p.dates }}</span><strong>{{ p.titre }}</strong><span>{{ p.lieu }}</span></li>
+        {% endif %}{% endfor %}
+      </ol>
+      <p class="tuile__pied">{{ site.ville }} · permis B, véhiculé</p>
+    </article>
+    <article class="tuile">
+      <h3>Compétences techniques</h3>
+      <ul class="puces">
+        {% for c in cv.competences %}<li>{{ c }}</li>{% endfor %}
+      </ul>
+    </article>
+    <article class="tuile">
+      <h3>Expériences</h3>
+      <ul class="liste-fine">
+        {% for p in cv.parcours %}{% if p.type == "Emploi" %}<li><strong>{{ p.titre }}</strong><span>{{ p.lieu }} · {{ p.dates }}</span></li>{% endif %}{% endfor %}
+      </ul>
+    </article>
+    <article class="tuile tuile--large">
+      <div>
+        <h3>Langues</h3>
+        <ul class="langues">
+          {% for l in cv.langues %}<li><span>{{ l.nom }}</span><span class="badge">{{ l.niveau }}</span></li>{% endfor %}
+        </ul>
+      </div>
+      <div>
+        <h3>Qualités</h3>
+        <ul class="etiquettes">{% for q in cv.qualites %}<li>{{ q }}</li>{% endfor %}</ul>
+      </div>
+      <div>
+        <h3>Centres d'intérêt</h3>
+        <ul class="etiquettes">{% for i in cv.interets %}<li>{{ i }}</li>{% endfor %}</ul>
+      </div>
+    </article>
+  </div>
 </section>
 
 <section class="bloc cadre" aria-labelledby="t-reals">
   <div class="bloc__tete">
-    <h2 id="t-reals">Réalisations</h2>
-    <p>TP, projets et stage réalisés pendant le BTS. Chaque fiche indique les compétences de l'épreuve E5 qu'elle couvre.</p>
+    <p class="surtitre">02 · Réalisations</p>
+    <h2 id="t-reals">Ce que je sais faire</h2>
+    <p class="bloc__lien"><a class="lien-fleche" href="/realisations/">Toutes les réalisations</a></p>
   </div>
-  {% include "liste-realisations.njk" %}
+  <div class="domaines">
+    {% for cat in categories %}
+    {% set items = collections.realisations | parCategorie(cat.cle) %}
+    {% if items.length %}
+    <a class="domaine teinte-{{ cat.teinte }}{% if loop.first %} domaine--grand{% endif %}" href="/realisations/?cat={{ cat.cle }}">
+      <span class="domaine__nb">{{ items.length }}</span>
+      <span class="domaine__nom">{{ cat.nom }}</span>
+      <ul>
+        {% for r in items %}<li>{{ r.data.title }}</li>{% endfor %}
+      </ul>
+    </a>
+    {% endif %}
+    {% endfor %}
+  </div>
 </section>
 
 <section class="bloc cadre" aria-labelledby="t-veille">
   <div class="bloc__tete">
-    <h2 id="t-veille">Veille cybersécurité</h2>
-    <p>Je suis l'actualité de la cybersécurité sur trois axes : les attaques, la sécurité des réseaux et la protection des données.</p>
+    <p class="surtitre">03 · Veille</p>
+    <h2 id="t-veille">Dernières actualités cybersécurité</h2>
+    <p class="bloc__lien"><a class="lien-fleche" href="/veille/">Toute la veille</a></p>
   </div>
-  <ol class="articles">
+  <div class="une">
     {% for a in collections.veille | limite(3) %}
-    <li class="article-ligne">
-      <time datetime="{{ a.date | dateIso }}">{{ a.date | dateLongue }}</time>
-      <span class="axe axe--{{ a.data.axe }}">Axe {{ a.data.axe }}</span>
-      <a href="{{ a.url }}">{{ a.data.title }}</a>
-    </li>
+    {% set ax = axes | trouve("num", a.data.axe) %}
+    <a class="une__carte axe-{{ a.data.axe }}" href="{{ a.url }}">
+      <span class="une__meta"><span class="pastille">Axe {{ a.data.axe }} · {{ ax.nom }}</span><time datetime="{{ a.date | dateIso }}">{{ a.date | dateLongue }}</time></span>
+      <span class="une__titre">{{ a.data.title }}</span>
+      <span class="une__resume">{{ a.data.resume }}</span>
+    </a>
     {% endfor %}
-  </ol>
-  <p><a class="lien-fort" href="/veille/">Toute la veille</a></p>
+  </div>
 </section>
 
-<section class="bloc cadre bloc--deux" aria-labelledby="t-certifs">
-  <div>
-    <h2 id="t-certifs">Certifications</h2>
-    <ul class="certifs">
-      <li><strong>RGPD</strong> Conformité et bonnes pratiques de protection des données personnelles.</li>
-      <li><strong>ANSSI</strong> Sensibilisation aux recommandations de l'Agence nationale de la sécurité des systèmes d'information.</li>
-      <li><strong>PIX</strong> Certification des compétences numériques, résultat à venir.</li>
-    </ul>
+<section class="bloc cadre" aria-labelledby="t-certifs">
+  <div class="bloc__tete">
+    <p class="surtitre">04 · Certifications</p>
+    <h2 id="t-certifs">Certifications et cours en ligne</h2>
   </div>
+  <ul class="certifs">
+    {% for c in certifications.obtenues %}
+    <li>
+      <span class="certifs__org">{{ c.org }}</span>
+      <strong>{{ c.nom }}</strong>
+      <span>{{ c.detail }}</span>
+      {% if c.date %}<span class="certifs__date">{{ c.date }}</span>{% endif %}
+    </li>
+    {% endfor %}
+    <li class="certifs--suite">
+      <span class="certifs__org">Prochain cours · {{ certifications.prochaine.org }}</span>
+      <strong>{{ certifications.prochaine.nom }}</strong>
+      <span>{{ certifications.prochaine.detail }}</span>
+    </li>
+  </ul>
+</section>
+
+<section class="contact cadre" aria-labelledby="t-contact">
   <div>
-    <h2>Me contacter</h2>
-    <p class="contact-gros"><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
-    <p>{% if site.telephone %}{{ site.telephone }}<br>{% endif %}{{ site.ville }}, permis B et véhiculé</p>
+    <h2 id="t-contact">Me contacter</h2>
+    <p>{{ site.ville }}, permis B et véhiculé. Une question sur mon parcours ou mes réalisations ? Écrivez-moi.</p>
   </div>
+  <a class="bouton bouton--grand" href="mailto:{{ site.email }}">{{ site.email }}</a>
 </section>

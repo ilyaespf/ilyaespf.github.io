@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0B1220">
   <title>{% if title %}{{ title }} | {% endif %}{{ site.nom }}, BTS SIO SISR</title>
   <meta name="description" content="{{ description or site.accroche }}">
   <meta property="og:title" content="{% if title %}{{ title }} | {% endif %}{{ site.nom }}">
@@ -16,7 +18,10 @@
   <a class="skip" href="#contenu">Aller au contenu</a>
   <header class="entete">
     <div class="cadre entete__in">
-      <a class="marque" href="/">{{ site.nom }}</a>
+      <a class="marque" href="/" aria-label="{{ site.nom }}, accueil">
+        <span class="marque__logo" aria-hidden="true">IS</span>
+        <span class="marque__nom">{{ site.nom }}</span>
+      </a>
       <nav aria-label="Navigation principale">
         <ul class="nav">
           {% set liens = [["/cv/", "CV"], ["/realisations/", "Réalisations"], ["/veille/", "Veille"], ["/e5/", "Épreuve E5"]] %}
@@ -35,15 +40,18 @@
   <footer class="pied">
     <div class="cadre pied__in">
       <div>
-        <p class="pied__nom">{{ site.nom }}</p>
-        <p>{{ site.titre }}, {{ site.ecole }}</p>
+        <p class="pied__nom"><span class="marque__logo" aria-hidden="true">IS</span> {{ site.nom }}</p>
+        <p>{{ site.titre }}<br>{{ site.ecole }}</p>
       </div>
-      <ul class="pied__contact">
-        <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-        {% if site.telephone %}<li><a href="tel:{{ site.telephone | replace(' ', '') }}">{{ site.telephone }}</a></li>{% endif %}
-        {% if site.linkedin %}<li><a href="{{ site.linkedin }}">LinkedIn</a></li>{% endif %}
+      <ul class="pied__liens">
+        {% for l in liens %}<li><a href="{{ l[0] }}">{{ l[1] }}</a></li>{% endfor %}
       </ul>
-      <p class="pied__maj">Mis à jour le {{ build.date | dateLongue }}</p>
+      <div class="pied__contact">
+        <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+        {% if site.telephone %}<a href="tel:{{ site.telephone | replace(' ', '') }}">{{ site.telephone }}</a>{% endif %}
+        {% if site.linkedin %}<a href="{{ site.linkedin }}">LinkedIn</a>{% endif %}
+        <p class="pied__maj">Mis à jour le {{ build.date | dateLongue }}</p>
+      </div>
     </div>
   </footer>
   {% if scripts %}{{ scripts | safe }}{% endif %}

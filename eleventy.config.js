@@ -28,6 +28,22 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("parCategorie", (items, cat) => items.filter((i) => i.data.categorie === cat));
   eleventyConfig.addFilter("parAxe", (items, axe) => items.filter((i) => String(i.data.axe) === String(axe)));
   eleventyConfig.addFilter("limite", (arr, n) => arr.slice(0, n));
+  eleventyConfig.addFilter("trouve", (arr, champ, valeur) =>
+    (arr || []).find((x) => String(x[champ]) === String(valeur))
+  );
+  // Regroupe des articles par mois : [{ mois: "novembre 2026", items: [...] }]
+  const moisAn = fr({ month: "long", year: "numeric" });
+  eleventyConfig.addFilter("parMois", (items) => {
+    const groupes = [];
+    for (const it of items) {
+      const m = moisAn(it.date);
+      const dernier = groupes[groupes.length - 1];
+      if (dernier && dernier.mois === m) dernier.items.push(it);
+      else groupes.push({ mois: m, items: [it] });
+    }
+    return groupes;
+  });
+  eleventyConfig.addFilter("jourMois", fr({ day: "numeric", month: "short" }));
   eleventyConfig.addFilter("compte", (items, key) =>
     items.filter((i) => (i.data.competences || []).includes(key)).length
   );

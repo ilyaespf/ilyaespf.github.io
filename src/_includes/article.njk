@@ -1,26 +1,33 @@
 ---
 layout: base.njk
+bodyClass: p-article
 ---
-{% set ax = null %}
-{% for a in axes %}{% if a.num == axe %}{% set ax = a %}{% endif %}{% endfor %}
-<article class="fiche cadre">
-  <p class="fil-ariane"><a href="/veille/">Veille cybersécurité</a> <span aria-hidden="true">/</span> Axe {{ axe }} : {{ ax.nom }}</p>
-  <h1 class="fiche__titre">{{ title }}</h1>
-  <p class="fiche__resume">{{ resume }}</p>
-  <p class="article-date">Actualité du <time datetime="{{ page.date | dateIso }}">{{ page.date | dateLongue }}</time></p>
+{% set ax = axes | trouve("num", axe) %}
+{% set plusRecent = collections.veille | getPreviousCollectionItem(page) %}
+{% set plusAncien = collections.veille | getNextCollectionItem(page) %}
+<article class="cadre lecture axe-{{ axe }}">
+  <header class="lecture__tete">
+    <p class="fil-ariane"><a href="/veille/">Veille</a> <span aria-hidden="true">/</span> <span class="pastille">Axe {{ axe }} · {{ ax.nom }}</span></p>
+    <h1>{{ title }}</h1>
+    <p class="lecture__chapo">{{ resume }}</p>
+    <p class="lecture__date">Actualité du <time datetime="{{ page.date | dateIso }}">{{ page.date | dateLongue }}</time></p>
+  </header>
 
-  <div class="fiche__corps prose">
+  <div class="prose prose--lecture">
     {{ content | safe }}
   </div>
 
   {% if sources and sources.length %}
-  <aside class="sources" aria-labelledby="t-sources">
+  <section class="sources" aria-labelledby="t-sources">
     <h2 id="t-sources">Sources</h2>
     <ul>
-      {% for s in sources %}<li><a href="{{ s.url }}">{{ s.titre }}</a>{% if s.media %}, {{ s.media }}{% endif %}</li>{% endfor %}
+      {% for s in sources %}<li><a href="{{ s.url }}"><span>{{ s.media }}</span>{{ s.titre }}</a></li>{% endfor %}
     </ul>
-  </aside>
+  </section>
   {% endif %}
 
-  <p class="retour"><a class="lien-fort" href="/veille/">Toute la veille</a></p>
+  <nav class="suite" aria-label="Autres actualités">
+    {% if plusAncien %}<a class="suite__lien" href="{{ plusAncien.url }}"><span>Plus ancienne</span>{{ plusAncien.data.title }}</a>{% else %}<span></span>{% endif %}
+    {% if plusRecent %}<a class="suite__lien suite__lien--droite" href="{{ plusRecent.url }}"><span>Plus récente</span>{{ plusRecent.data.title }}</a>{% endif %}
+  </nav>
 </article>
