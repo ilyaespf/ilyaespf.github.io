@@ -31,7 +31,7 @@ description: Tableau de synthèse des réalisations et attestation de stage pour
 <section class="cadre bloc--serre" aria-labelledby="t-tableau">
   <div class="bloc__tete bloc__tete--ligne">
     <h2 id="t-tableau" class="titre-section">Tableau de synthèse</h2>
-    {% if site.docs.tableauSynthese %}<a class="bouton bouton--contour" href="{{ site.docs.tableauSynthese }}" download>Télécharger le tableau officiel (Excel)</a>{% endif %}
+    {% if site.docs.tableauSynthese %}<a class="lien-fleche" href="#documents">Documents à télécharger</a>{% endif %}
   </div>
   <div class="tableau-defile" tabindex="0" role="region" aria-labelledby="t-tableau">
     <table class="synthese">
@@ -59,6 +59,35 @@ description: Tableau de synthèse des réalisations et attestation de stage pour
       </tbody>
     </table>
   </div>
+</section>
+
+<section class="cadre bloc--serre" id="documents" aria-labelledby="t-docs">
+  <h2 id="t-docs" class="titre-section">Documents à télécharger</h2>
+  <ul class="documents">
+    {% if site.docs.tableauSynthese %}
+    <li class="document">
+      <span class="document__type">XLSX</span>
+      <div class="document__texte">
+        <strong>Tableau de synthèse de l'épreuve E5</strong>
+        <span>Modèle officiel (annexe 8-1) rempli avec mes réalisations</span>
+      </div>
+      <div class="document__liens">
+        <a class="bouton" href="{{ site.docs.tableauSynthese }}" download>Excel</a>
+        {% if site.docs.tableauSynthesePdf %}<a class="bouton bouton--contour" href="{{ site.docs.tableauSynthesePdf }}">PDF</a>{% endif %}
+      </div>
+    </li>
+    {% endif %}
+    {% if site.docs.attestationSiqual %}
+    <li class="document">
+      <span class="document__type">PDF</span>
+      <div class="document__texte">
+        <strong>Attestation de stage SIQUAL</strong>
+        <span>Stage du 25 mai au 26 juin 2026</span>
+      </div>
+      <div class="document__liens"><a class="bouton" href="{{ site.docs.attestationSiqual }}">Voir</a></div>
+    </li>
+    {% endif %}
+  </ul>
 </section>
 
 <section class="cadre bloc--serre" aria-labelledby="t-attest">

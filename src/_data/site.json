@@ -11,8 +11,9 @@
   "linkedin": "",
   "url": "https://ilyaespf.github.io",
   "docs": {
-    "tableauSynthese": "",
+    "tableauSynthese": "/assets/docs/Tableau_synthese_E5_Ilyaes_Satirer.xlsx",
     "attestationSiqual": "",
-    "cvPdf": ""
+    "cvPdf": "",
+    "tableauSynthesePdf": "/assets/docs/Tableau_synthese_E5_Ilyaes_Satirer.pdf"
   }
 }

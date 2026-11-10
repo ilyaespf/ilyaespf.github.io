@@ -383,6 +383,13 @@ main { flex: 1; padding-bottom: 4rem; }
 .attest p:last-child { color: var(--doux); margin: 0; }
 .attest__info { color: var(--pale) !important; font-style: italic; }
 
+.documents { display: grid; gap: .75rem; }
+.document { display: flex; align-items: center; gap: 1.1rem; flex-wrap: wrap; padding: 1.1rem 1.25rem; border-radius: var(--rayon); background: var(--carte); border: 1px solid var(--trait); }
+.document__type { flex: none; display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border-radius: 10px; font-family: var(--f-code); font-size: .78rem; font-weight: 700; color: var(--vert); background: color-mix(in srgb, var(--vert) 12%, transparent); border: 1px solid color-mix(in srgb, var(--vert) 35%, transparent); }
+.document__texte { flex: 1 1 16rem; display: flex; flex-direction: column; }
+.document__texte span { color: var(--doux); font-size: .92rem; }
+.document__liens { display: flex; gap: .5rem; }
+
 /* =========================================================
    Écrans moyens et petits
    ========================================================= */
